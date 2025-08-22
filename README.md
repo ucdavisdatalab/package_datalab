@@ -2,6 +2,8 @@
 
 [top]: #datalab-python-package
 
+_Maintainer: Nick Ulle <<naulle@ucdavis.edu>>_
+
 This is the repository for the `datalab` Python package. The package is a
 [namespace package][], which means that it's a collection of multiple
 semi-independent sub-packages. You don't need to install all of the
