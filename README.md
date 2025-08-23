@@ -19,7 +19,7 @@ Nick recommends creating a sub-package for every project that uses Python in
 the project's repo (NOT this repo).
 
 
-## Installation
+## Usage
 
 To use the sub-packages in this repo in your project, add this to your
 project's `pyproject.toml`:
@@ -31,54 +31,23 @@ datalab = { git = "https://github.com/ucdavisdatalab/package_datalab.git" }
 
 Then run `pixi install` in a terminal to install the environment.
 
+([back to top][top])
 
-### For Contributors
 
-To get started, open a terminal (Git Bash on Windows) and clone a copy of this
-repo:
+## Files & Directories
 
+The files and directories in this repository are:
 ```
-git clone git@github.com:ucdavisdatalab/package_datalab.git
+src/                Python source code
+└── datalab/        The `datalab` namespace package
+    └── utilities/  The `utilities` sub-package
+.gitattributes      Paths Git should give special treatment
+.gitignore          Paths Git should ignore
+LICENSE             License for the project
+pixi.lock           Exact description of Pixi environment (Python dependencies)
+pyproject.toml      Package metadata file (including Python dependencies)
+README.md           This file
 ```
-
-Then follow the instructions in the next section to set up the necessary
-software environment.
-
-
-#### Pixi
-
-We *strongly recommend* using [Pixi][], a fast package manager based on the
-conda ecosystem, to install the packages required by this repo. To install
-Pixi, follow [the official instructions][pixi]. If you prefer not to use Pixi,
-it's also possible to manually install the packages using conda or mamba.
-
-[pixi]: https://pixi.sh/
-
-The `pixi.toml` file in this repo lists required packages, while the
-`pixi.lock` file lists package versions for each platform. When the lock file
-is present, Pixi will attempt to install the exact versions listed. Deleting
-the lock file allows Pixi to install other versions, which might help if
-installation fails (but beware of inconsistencies between package versions).
-
-To install the required packages, open a terminal and navigate to this repo's
-directory. Then run:
-
-```sh
-pixi install
-```
-
-This will automatically create a virtual environment and install the packages.
-
-To open a shell in the virtual environment, run:
-
-```sh
-pixi shell
-```
-
-You can run the `pixi shell` command from the repo directory or any of its
-subdirectories. Use the virtual environment to run any commands related to this
-repo. When you're finished using the virtual environment, you can use the
-`exit` command to exit the shell.
 
 ([back to top][top])
 
@@ -123,19 +92,47 @@ required to put [type annotations][typing] on function definitions.
 ([back to top][top])
 
 
-## File & Directory Structure
+## Installation (for Contributors)
 
-The directory structure for this repository is:
+Open a terminal (Git Bash on Windows) and clone a copy of this repo:
+
 ```
-src/                Python source code
-└── datalab/        The `datalab` namespace package
-    └── utilities/  The `utilities` sub-package
-.gitattributes      Paths Git should give special treatment
-.gitignore          Paths Git should ignore
-LICENSE             License for the project
-pixi.lock           Exact description of Pixi environment (Python dependencies)
-pyproject.toml      Package metadata file (including Python dependencies)
-README.md           This file
+git clone git@github.com:ucdavisdatalab/package_datalab.git
 ```
+
+### Pixi
+
+We *strongly recommend* using [Pixi][], a fast package manager based on the
+conda ecosystem, to install the packages required by this repo. To install
+Pixi, follow [the official instructions][pixi]. If you prefer not to use Pixi,
+it's also possible to manually install the packages using conda or mamba.
+
+[pixi]: https://pixi.sh/
+
+The `pixi.toml` file in this repo lists required packages, while the
+`pixi.lock` file lists package versions for each platform. When the lock file
+is present, Pixi will attempt to install the exact versions listed. Deleting
+the lock file allows Pixi to install other versions, which might help if
+installation fails (but beware of inconsistencies between package versions).
+
+To install the required packages, open a terminal and navigate to this repo's
+directory. Then run:
+
+```sh
+pixi install
+```
+
+This will automatically create a virtual environment and install the packages.
+
+To open a shell in the virtual environment, run:
+
+```sh
+pixi shell
+```
+
+You can run the `pixi shell` command from the repo directory or any of its
+subdirectories. Use the virtual environment to run any commands related to this
+repo. When you're finished using the virtual environment, you can use the
+`exit` command to exit the shell.
 
 ([back to top][top])
