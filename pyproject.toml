@@ -16,6 +16,7 @@ platforms = ["linux-64"]
 # Dependencies
 # ------------
 [tool.pixi.dependencies]
+loguru = ">=0.7.3,<0.8"
 
 [tool.pixi.pypi-dependencies]
 datalab = { path = ".", editable = true }
