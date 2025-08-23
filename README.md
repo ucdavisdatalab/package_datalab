@@ -90,6 +90,36 @@ repo. When you're finished using the virtual environment, you can use the
 > Do not commit large files (> 1 MB) to the repository. Upload these to cloud
 > storage (such as Google Drive or Box) instead.
 
+You can add modules and functions to the `datalab.utilities` sub-package.
+
+If you want to add a whole collection of closely related modules, it might be
+more appropriate to create a new sub-package. Check with the maintainer if
+you're not sure. To create a new sub-package, make a subdirectory under
+`src/datalab/` that contains an `__init__.py` file. For example, if you want to
+create a sub-package called `datalab.moo`, the directory structure should be:
+
+```
+src/
+└── datalab/
+    ├── moo/
+    │   ├── __init__.py
+    │   └── ...
+    └── utilities/
+        ├── __init__.py
+        └── ...
+```
+
+Please follow [PEP 8][], write [docstrings][], and follow [the NumPy docstring
+standard][numpydoc]. Lint your code with [ruff][]. It's also good but not
+required to put [type annotations][typing] on function definitions.
+
+[PEP 8]: https://peps.python.org/pep-0008/
+[docstrings]: https://peps.python.org/pep-0257/
+[numpydoc]: https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard
+[ruff]: https://docs.astral.sh/ruff/
+[typing]: https://docs.python.org/3/library/typing.html
+
+
 ([back to top][top])
 
 
