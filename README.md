@@ -31,6 +31,18 @@ datalab = { git = "https://github.com/ucdavisdatalab/package_datalab.git" }
 
 Then run `pixi install` in a terminal to install the environment.
 
+### `datalab.utilities`
+
+This sub-package provides the following modules:
+
+* `cli`: functions to create command-line interfaces to modules and scripts.
+* `datetime`: functions to get dates and times in ISO 8601 format.
+* `hashing`: functions to compute hashes (fingerprints) for data.
+* `io`: functions to read files in various formats.
+
+Read the docstrings with Python's `help` function for more details.
+
+
 ([back to top][top])
 
 
@@ -77,6 +89,9 @@ src/
         ├── __init__.py
         └── ...
 ```
+
+Work on a new branch and make a pull request to incorporate your changes, even
+if you have write access to the `main` branch.
 
 Please follow [PEP 8][], write [docstrings][], and follow [the NumPy docstring
 standard][numpydoc]. Lint your code with [ruff][]. It's also good but not
