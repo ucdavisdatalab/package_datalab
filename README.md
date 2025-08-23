@@ -21,6 +21,19 @@ the project's repo (NOT this repo).
 
 ## Installation
 
+To use the sub-packages in this repo in your project, add this to your
+project's `pyproject.toml`:
+
+```toml
+[tool.pixi.pypi-dependencies]
+datalab = { git = "https://github.com/ucdavisdatalab/package_datalab.git" }
+```
+
+Then run `pixi install` in a terminal to install the environment.
+
+
+### For Contributors
+
 To get started, open a terminal (Git Bash on Windows) and clone a copy of this
 repo:
 
@@ -32,7 +45,7 @@ Then follow the instructions in the next section to set up the necessary
 software environment.
 
 
-### Pixi
+#### Pixi
 
 We *strongly recommend* using [Pixi][], a fast package manager based on the
 conda ecosystem, to install the packages required by this repo. To install
