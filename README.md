@@ -39,6 +39,9 @@ This sub-package provides the following modules:
 * `datetime`: functions to get dates and times in ISO 8601 format.
 * `hashing`: functions to compute hashes (fingerprints) for data.
 * `io`: functions to read files in various formats.
+* `logging`: functions to manage logging via Loguru.
+* `notebook`: functions for working with Jupyter notebooks.
+* `pathing`: functions to work with paths and set the working directory.
 
 Read the docstrings with Python's `help` function for more details.
 

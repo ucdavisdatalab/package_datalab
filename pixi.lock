@@ -186,8 +186,8 @@ packages:
   timestamp: 1733218222191
 - pypi: ./
   name: datalab
-  version: 0.1.0
-  sha256: f66af1ab593f05d8362de077292e4ced4323da8d1bd78ff374e59f1649fb1d58
+  version: 0.2.0
+  sha256: 3b8fbaa2f2c042ef0d33632442b0582ce3c15a633cd2f4220fe8d3280e9cc778
   requires_python: '>=3.11'
   editable: true
 - conda: https://conda.anaconda.org/conda-forge/osx-arm64/icu-75.1-hfee45f7_0.conda
