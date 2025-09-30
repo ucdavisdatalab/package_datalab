@@ -1,11 +1,11 @@
-"""Functions for working with mappings.
+"""Functions for working with dicts and other key-value data structures.
 """
 
 from typing import Any
 
 
 def recursive_update(older: dict, newer: dict) -> dict:
-    """Recursively update older mappings with newer mappings.
+    """Recursively update a dict and its sub-dicts with new key-value pairs.
 
     Note that this function does not recurse into lists (their key is updated
     without examining their elements).

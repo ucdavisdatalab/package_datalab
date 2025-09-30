@@ -8,7 +8,7 @@ from loguru import logger
 
 import datalab.utilities.datetime as dt
 import datalab.utilities.io as io
-import datalab.utilities.maptools as maptools
+import datalab.utilities.dicttools as dicttools
 
 
 def provide_toml_interface(
@@ -52,7 +52,7 @@ def provide_toml_interface(
 
     if format_keys is not None:
         format_keys = {k: config.get(k, "") for k in format_keys}
-        config = maptools.recursive_format(
+        config = dicttools.recursive_format(
             config,
             date = dt.iso_date_now(),
             datetime = dt.iso_datetime_now(),

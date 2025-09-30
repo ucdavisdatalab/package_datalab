@@ -6,7 +6,7 @@ from pathlib import Path
 import tomllib
 from typing import Any
 
-import datalab.utilities.maptools as maptools
+import datalab.utilities.dicttools as dicttools
 
 
 def read_api_key(path: str | Path) -> str:
@@ -58,7 +58,7 @@ def read_toml(path: str | Path, inherit: bool = False) -> dict:
                     " inherit from a different file."
                 )
 
-        result = maptools.recursive_update(inherited, result)
+        result = dicttools.recursive_update(inherited, result)
 
     return result
 
