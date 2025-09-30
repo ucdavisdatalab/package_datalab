@@ -63,20 +63,42 @@ def read_toml(path: str | Path, inherit: bool = False) -> dict:
     return result
 
 
-def read_json(path: str | Path) -> Any:
+def read_json(path: str | Path, inherit: bool = False) -> Any:
     """Read a JSON file.
 
     Parameters
     ----------
     path
         Path to the JSON file to read.
+    inherit
+        If True, the JSON file can inherit settings from another JSON file
+        whose path is specified in a top-level `inherit` key.
 
     Returns
     -------
     The contents of the JSON file.
     """
     with open(path, "rt") as f:
-        return json.load(f)
+        result = json.load(f)
+
+    if inherit and "inherit" in result:
+        inherit_path = Path(result["inherit"])
+        if not inherit_path.is_absolute():
+            # So `inherit_path` is relative to `path`.
+            inherit_path = Path(path).parent / inherit_path
+
+        with open(inherit_path, "rb") as f:
+            inherited = json.load(f)
+            if "inherit" in inherited:
+                raise RuntimeError(
+                    f"The inherited file ('{inherit_path}') also has an"
+                    " `inherit` key, which is not allowed. Remove the key or"
+                    " inherit from a different file."
+                )
+
+        result = dicttools.recursive_update(inherited, result)
+
+    return result
 
 
 def write_json(obj: Any, path: str | Path, mode: str = "xt", **kwargs):
