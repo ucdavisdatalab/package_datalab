@@ -1,27 +1,53 @@
 """Functions for working with mappings.
 """
 
-import collections
+from typing import Any
 
 
-def recursive_update(older, newer):
+def recursive_update(older: dict, newer: dict) -> dict:
     """Recursively update older mappings with newer mappings.
 
-    Note that lists are replaced rather than combined.
+    Note that this function does not recurse into lists (their key is updated
+    without examining their elements).
 
     Parameters
     ----------
     older
-        The mapping to update.
+        A dict to update.
     newer
-        The mapping to use to update the older mapping.
+        A dict that contains the updates.
     """
-    MM = collections.abc.MutableMapping
     result = older.copy()
     for k, v in newer.items():
-        if isinstance(v, MM) and isinstance(result.get(k), MM):
+        if isinstance(v, dict) and isinstance(result.get(k), dict):
             result[k] = recursive_update(result[k], v)
         else:
             result[k] = v
 
     return result
+
+
+def recursive_format(obj: Any, **kwargs) -> Any:
+    """Recurse through a JSON- or TOML-like object, formatting all strings
+    found.
+
+    Parameters
+    ----------
+    obj
+        The object to recurse through.
+    **kwargs
+        Arguments to `str.format`.
+
+    Returns
+    -------
+    An object with the same shape as `obj` and all strings formatted.
+    """
+    match obj:
+        case dict():
+            return {k: recursive_format(v, **kwargs) for k, v in obj.items()}
+        case list():
+            return [recursive_format(x, **kwargs) for x in obj]
+        case str():
+            return obj.format(**kwargs)
+        case _:
+            return obj

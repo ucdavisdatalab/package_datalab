@@ -63,32 +63,6 @@ def read_toml(path: str | Path, inherit: bool = False) -> dict:
     return result
 
 
-def recursive_format(obj: dict, **kwargs):
-    """Recurse through a JSON- or TOML-like object, formatting all strings
-    found.
-
-    Parameters
-    ----------
-    obj
-        The object to recurse through.
-    **kwargs
-        Arguments to `str.format`.
-
-    Returns
-    -------
-    An object with the same shape as `obj` and all strings formatted.
-    """
-    match obj:
-        case dict():
-            return {k: recursive_format(v, **kwargs) for k, v in obj.items()}
-        case list():
-            return [recursive_format(x, **kwargs) for x in obj]
-        case str():
-            return obj.format(**kwargs)
-        case _:
-            return obj
-
-
 def read_json(path: str | Path) -> Any:
     """Read a JSON file.
 
