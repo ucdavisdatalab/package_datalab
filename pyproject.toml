@@ -1,6 +1,6 @@
 [project]
 name = "datalab"
-version = "0.3.0"
+version = "0.3.1"
 authors = [
   {name = "Nick Ulle", email = "nick.ulle@gmail.com"},
 ]

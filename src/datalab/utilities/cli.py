@@ -48,7 +48,7 @@ def provide_toml_interface(
 
     config_path = args.config_path
     logger.info(f"Reading '{config_path}'")
-    config = io.read_toml(config_path)
+    config = io.read_toml(config_path, inherit = True)
 
     if format_keys is not None:
         format_keys = {k: config.get(k, "") for k in format_keys}
