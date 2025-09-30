@@ -6,6 +6,8 @@ from pathlib import Path
 import tomllib
 from typing import Any
 
+import datalab.utilities.dicttools as dicttools
+
 
 def read_api_key(path: str | Path) -> str:
     """Read an API key or authentication token from a file.
@@ -23,62 +25,80 @@ def read_api_key(path: str | Path) -> str:
         return f.readline().strip()
 
 
-def read_toml(path: str | Path) -> dict:
+def read_toml(path: str | Path, inherit: bool = False) -> dict:
     """Read a TOML file.
 
     Parameters
     ----------
     path
         Path to the TOML file to read.
+    inherit
+        If True, the TOML file can inherit settings from another TOML file
+        whose path is specified in a top-level `inherit` key.
 
     Returns
     -------
     The contents of the TOML file.
     """
     with open(path, "rb") as f:
-        return tomllib.load(f)
+        result = tomllib.load(f)
+
+    if inherit and "inherit" in result:
+        inherit_path = Path(result["inherit"])
+        if not inherit_path.is_absolute():
+            # So `inherit_path` is relative to `path`.
+            inherit_path = Path(path).parent / inherit_path
+
+        with open(inherit_path, "rb") as f:
+            inherited = tomllib.load(f)
+            if "inherit" in inherited:
+                raise RuntimeError(
+                    f"The inherited file ('{inherit_path}') also has an"
+                    " `inherit` key, which is not allowed. Remove the key or"
+                    " inherit from a different file."
+                )
+
+        result = dicttools.recursive_update(inherited, result)
+
+    return result
 
 
-def recursive_format(obj: dict, **kwargs):
-    """Recurse through a JSON- or TOML-like object, formatting all strings
-    found.
-
-    Parameters
-    ----------
-    obj
-        The object to recurse through.
-    **kwargs
-        Arguments to `str.format`.
-
-    Returns
-    -------
-    An object with the same shape as `obj` and all strings formatted.
-    """
-    match obj:
-        case dict():
-            return {k: recursive_format(v, **kwargs) for k, v in obj.items()}
-        case list():
-            return [recursive_format(x, **kwargs) for x in obj]
-        case str():
-            return obj.format(**kwargs)
-        case _:
-            return obj
-
-
-def read_json(path: str | Path) -> Any:
+def read_json(path: str | Path, inherit: bool = False) -> Any:
     """Read a JSON file.
 
     Parameters
     ----------
     path
         Path to the JSON file to read.
+    inherit
+        If True, the JSON file can inherit settings from another JSON file
+        whose path is specified in a top-level `inherit` key.
 
     Returns
     -------
     The contents of the JSON file.
     """
     with open(path, "rt") as f:
-        return json.load(f)
+        result = json.load(f)
+
+    if inherit and "inherit" in result:
+        inherit_path = Path(result["inherit"])
+        if not inherit_path.is_absolute():
+            # So `inherit_path` is relative to `path`.
+            inherit_path = Path(path).parent / inherit_path
+
+        with open(inherit_path, "rb") as f:
+            inherited = json.load(f)
+            if "inherit" in inherited:
+                raise RuntimeError(
+                    f"The inherited file ('{inherit_path}') also has an"
+                    " `inherit` key, which is not allowed. Remove the key or"
+                    " inherit from a different file."
+                )
+
+        result = dicttools.recursive_update(inherited, result)
+
+    return result
 
 
 def write_json(obj: Any, path: str | Path, mode: str = "xt", **kwargs):
